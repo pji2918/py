@@ -24,8 +24,8 @@ t.close()
 # read png image
 stream = ffmpeg.input(filename)
 
-# convert png to webp (lossy, qulity 0, compression_level 0)
-stream = ffmpeg.output(stream, "output.webp", compression_level=0, qscale=0)
+# convert png to avif (lossy, quality 0, alpha quality 0, libaom-av1 encoder)
+stream = ffmpeg.output(stream, "output.avif", q=0, aq=0, vcodec="libaom-av1")
 
 # run ffmpeg. if file exists, overwrite it
 ffmpeg.run(stream, overwrite_output=True)
