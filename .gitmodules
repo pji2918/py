@@ -1,0 +1,3 @@
+[submodule "Anubis"]
+	path = Anubis
+	url = https://github.com/0sir1ss/Anubis.git
