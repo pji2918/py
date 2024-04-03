@@ -1,0 +1,25 @@
+n, m = map(int, input().split())
+
+data = []
+for i in range(n):
+    data.append(input())
+
+data.sort()
+
+dna = ""
+
+for y in range(m):
+    value = {"A": 0, "C": 0, "G": 0, "T": 0}
+    for x in range(n):
+        val = data[x][y]
+        value[val] += 1
+    dna += max(value, key=value.get)
+
+ans = 0
+for x in range(n):
+    for y in range(m):
+        if dna[y] != data[x][y]:
+            ans += 1
+
+print(dna)
+print(ans)
