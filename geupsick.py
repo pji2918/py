@@ -6,10 +6,14 @@ import os
 
 dateipt = input("날짜를 입력하세요(YYYYMMDD 혹은 TODAY) : ")
 
-if dateipt.upper() == "TODAY" or dateipt == "NOW":
-    now = datetime.datetime.now()
-else:
-    now = datetime.datetime.strptime(dateipt, "%Y%m%d")
+try:
+    if dateipt.upper() == "TODAY" or dateipt == "NOW":
+        now = datetime.datetime.now()
+    else:
+        now = datetime.datetime.strptime(dateipt, "%Y%m%d")
+except ValueError:
+    print("ERROR 00: 날짜 형식이 잘못되었습니다.")
+    exit()
 
 # format the date to YYYYMMDD
 date = now.strftime("%Y%m%d")
@@ -33,7 +37,7 @@ elif text.startswith("<"):
 
 # if text is not a formatted text, throw exception
 else:
-    raise Exception("Text is not a formatted text")
+    raise Exception("ERROR 01: 문자열이 올바르지 않습니다. 나중에 다시 시도해주세요.")
 
 # # print the text as full table (not truncated or ellipsed)
 # pd.set_option("display.max_colwidth", None)
