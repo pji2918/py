@@ -7,7 +7,6 @@ pix = image.load()
 
 for i in range(image.size[0]):
     for j in range(image.size[1]):
-        random.seed(datetime.datetime.now())
         if random.randint(0, 1) == 1:
             pix[i, j] = (255, 255, 255)
         else:
