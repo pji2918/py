@@ -1,12 +1,12 @@
 import random
 import string
 
-# randstr = (string.ascii_letters + string.digits).join(
-#     [chr(i) for i in range(0xAC00, 0xD7A4)]
-# )
+randstr = (string.ascii_letters + string.digits + string.punctuation).join(
+    [chr(i) for i in range(0xAC00, 0xD7A4)]
+)
 
 while True:
-    randstr = "".join([chr(i) for i in range(0xAC00, 0xD7A4)])
+    # randstr = "".join([chr(i) for i in range(0xAC00, 0xD7A4)])
 
     iteration = input("뽑을 글자 수를 입력하십시오: ")
 
