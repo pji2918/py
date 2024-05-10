@@ -1,6 +1,5 @@
 from PIL import Image
 import random
-import datetime
 
 image = Image.new(mode="RGBA", size=(300, 300))
 pix = image.load()
