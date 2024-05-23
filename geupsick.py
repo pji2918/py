@@ -47,7 +47,7 @@ if dateipt.upper() == "NOW":
     t = now.hour
     if t <= 8:
         t = 0
-    elif t <= 13:
+    elif t <= 12:
         t = 1
     else:
         t = 2
