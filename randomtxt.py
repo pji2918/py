@@ -1,19 +1,47 @@
 import random
 import string
 
-randstr = (string.ascii_letters + string.digits + string.punctuation).join(
-    [chr(i) for i in range(0xAC00, 0xD7A4)]
-)
-
 while True:
-    # randstr = "".join([chr(i) for i in range(0xAC00, 0xD7A4)])
+    mode = input("모드를 입력하십시오(한글, 노한글, 자음모음한글, 모두): ")
+
+    if mode == "한글":
+        randstr = [chr(i) for i in range(0xAC00, 0xD7A4)]
+    elif mode == "노한글":
+        randstr = string.ascii_letters + string.digits + string.punctuation
+    elif mode == "자음모음한글":
+        randstr = [chr(i) for i in range(0xAC00, 0xD7A4)] + [
+            chr(i) for i in range(0x3131, 0x3163)
+        ]
+    elif mode == "모두":
+        randstr = (
+            string.ascii_letters
+            + string.digits
+            + string.punctuation
+            + [chr(i) for i in range(0xAC00, 0xD7A4)]
+            + [chr(i) for i in range(0x3131, 0x3163)]
+        )
+    else:
+        print('그런 모드는 존재하지 않는다. 그냥 "모두"를 사용하겠다.')
+        randstr = (
+            string.ascii_letters
+            + string.digits
+            + string.punctuation
+            + [chr(i) for i in range(0xAC00, 0xD7A4)]
+            + [chr(i) for i in range(0x3131, 0x3163)]
+        )
 
     iteration = input("뽑을 글자 수를 입력하십시오: ")
 
     try:
         for i in range(int(iteration)):
             print(random.choice(randstr), end="")
-        break
+        print("\n완료. 다시 하시겠습니까?")
+        ans = input("답(y/n): ")
+
+        if ans.lower() == "y" or "ㅇ" in ans:
+            continue
+        elif ans.lower() == "n" or "ㄴ" in ans:
+            break
     except (ValueError, TypeError):
         print("Error. 숫자만 입력할 수 있습니다.")
         continue
