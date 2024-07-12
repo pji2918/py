@@ -87,21 +87,6 @@ if os.name == "nt":
 else:
     os.system("clear")
 
-cl = ai.chat.completions.create(
-    model="gpt-4o",
-    messages=[
-        {
-            "role": "system",
-            "content": "당신은 객관적으로 급식의 맛을 평가하는 인공지능입니다. 0부터 100까지의 숫자로 평가 점수를 반환하세요. 숫자 이외에 다른 문자를 포함하면 안 됩니다.\n평가는 고기, 디저트, 카레, 튀김 등의 맛있는 음식이 많을 경우 점수가 올라갑니다.\n생선이 포함된 음식이나 해산물, 채소가 많을 경우 점수가 내려갑니다.",
-        },
-        {
-            "role": "user",
-            "content": str.format("다음은 오늘의 학교 급식이야. 평가해 줘:\n{0}", food),
-        },
-    ],
-)
-
-
 print(
     str.format(
         "===== {0}년 {1}월 {2}일의 {3} 급식 메뉴 =====",
@@ -112,8 +97,22 @@ print(
     )
 )
 print(food)
-
 if food != "급식 없음":
+    cl = ai.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {
+                "role": "system",
+                "content": "당신은 객관적으로 급식의 맛을 평가하는 인공지능입니다. 0부터 100까지의 숫자로 평가 점수를 반환하세요. 숫자 이외에 다른 문자를 포함하면 안 됩니다.\n평가는 고기, 디저트, 카레, 튀김 등의 맛있는 음식이 많을 경우 점수가 올라갑니다.\n생선이 포함된 음식이나 해산물, 채소가 많을 경우 점수가 내려갑니다.",
+            },
+            {
+                "role": "user",
+                "content": str.format(
+                    "다음은 오늘의 학교 급식이야. 평가해 줘:\n{0}", food
+                ),
+            },
+        ],
+    )
     print("---------------------------------------------")
     print(str.format("GPT 피셜 오늘의 G-Score: {0}점", cl.choices[0].message.content))
 print("=============================================")
