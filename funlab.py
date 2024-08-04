@@ -1,8 +1,16 @@
-s: str = "test"
+import random
 
-
-def f(q: str) -> str:
-    return str.join(s, q)
-
-
-print(f(s))
+random.seed(19721121)
+print(random.random())
+random.seed(19721121)
+print(random.random())
+random.seed(19721121)
+print(random.random())
+random.seed(19721121)
+print(random.random())
+random.seed(19721121)
+print(random.random())
+random.seed(19721121)
+print(random.random())
+random.seed(19721121)
+print(random.random())
