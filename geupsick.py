@@ -99,7 +99,7 @@ print(
 print(food)
 if food != "급식 없음":
     cl = ai.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-4o-mini",
         messages=[
             {
                 "role": "system",
