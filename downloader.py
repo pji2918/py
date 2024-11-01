@@ -12,29 +12,37 @@ def download_file(url: str, output_dir: str):
     response = requests.get(url, stream=True)
     total = int(response.headers.get("content-length", 0))
 
-    try:
-        with open(local_filepath, "wb") as f, tqdm(
-            total=total, unit="iB", unit_scale=True
-        ) as bar:
-            for data in response.iter_content(chunk_size=1024):
-                f.write(data)
-                bar.update(len(data))
-        return local_filepath
-    except KeyboardInterrupt:
-        print("\n다운로드가 취소되었습니다.")
-        if os.path.exists(local_filepath):
-            os.remove(local_filepath)
+    # if requested url is not file, return None
+    if total == 0:
+        print("요청하신 URL은 파일이 아닙니다.")
         return None
+
+    # if file already exists, ask user to overwrite
+    if os.path.exists(local_filepath):
+        print(f"파일이 이미 존재합니다: {local_filepath}")
+        answer = input("덮어쓰시겠습니까? (y/n): ")
+        if answer.lower() != "y":
+            return None
+        else:
+            with open(local_filepath, "wb") as f, tqdm(
+                total=total,
+                unit="iB",
+                unit_scale=True,
+                unit_divisor=1024,
+                bar_format="{l_bar}{bar:10}{r_bar}",
+            ) as bar:
+                for data in response.iter_content(chunk_size=1024):
+                    f.write(data)
+                    bar.update(len(data))
+            return local_filepath
 
 
 def main():
     parser = argparse.ArgumentParser(description="파일 다운로드")
     parser.add_argument("url", help="다운로드할 파일의 URL")
+    parser.add_argument("-o", "--output", default=".", help="다운로드할 디렉터리")
     parser.add_argument(
-        "-o", "--output", default="downloads", help="다운로드할 디렉터리"
-    )
-    parser.add_argument(
-        "-t", "--threads", type=int, default=4, help="다운로드에 사용할 스레드 수"
+        "-t", "--threads", type=int, default=1, help="다운로드에 사용할 스레드 수"
     )
     args = parser.parse_args()
 
@@ -47,8 +55,7 @@ def main():
             result = future.result()
             if result:
                 print(f"다운로드가 완료되었습니다: {result}")
-    except KeyboardInterrupt:
-        print("\n다운로드가 취소되었습니다.")
+
     except Exception as e:
         print(f"다운로드 중 오류가 발생했습니다: {e}")
 
