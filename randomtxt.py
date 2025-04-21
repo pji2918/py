@@ -13,22 +13,10 @@ while True:
             chr(i) for i in range(0x3131, 0x3163)
         ]
     elif mode == "모두":
-        randstr = (
-            string.ascii_letters
-            + string.digits
-            + string.punctuation
-            + [chr(i) for i in range(0xAC00, 0xD7A4)]
-            + [chr(i) for i in range(0x3131, 0x3163)]
-        )
+        randstr = f"{string.ascii_letters}{string.digits}{string.punctuation}{[chr(i) for i in range(0xAC00, 0xD7A4)]}{[chr(i) for i in range(0x3131, 0x3163)]}"
     else:
         print('그런 모드는 존재하지 않는다. 그냥 "모두"를 사용하겠다.')
-        randstr = (
-            string.ascii_letters
-            + string.digits
-            + string.punctuation
-            + [chr(i) for i in range(0xAC00, 0xD7A4)]
-            + [chr(i) for i in range(0x3131, 0x3163)]
-        )
+        randstr = f"{string.ascii_letters}{string.digits}{string.punctuation}{[chr(i) for i in range(0xAC00, 0xD7A4)]}{[chr(i) for i in range(0x3131, 0x3163)]}"
 
     iteration = input("뽑을 글자 수를 입력하십시오: ")
 
