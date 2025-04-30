@@ -6,7 +6,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "-v", "--verbose", help="Show detailed debug info", action="store_true"
+    "-v", "--verbose", help="show detailed debug info", action="store_true"
 )
 args = parser.parse_args()
 
