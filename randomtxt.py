@@ -9,9 +9,7 @@ while True:
     elif mode == "노한글":
         randstr = string.ascii_letters + string.digits + string.punctuation
     elif mode == "자음모음한글":
-        randstr = [chr(i) for i in range(0xAC00, 0xD7A4)] + [
-            chr(i) for i in range(0x3131, 0x3163)
-        ]
+        randstr = f"{[chr(i) for i in range(0xAC00, 0xD7A4)]}{[chr(i) for i in range(0x3131, 0x3163)]}"
     elif mode == "모두":
         randstr = f"{string.ascii_letters}{string.digits}{string.punctuation}{[chr(i) for i in range(0xAC00, 0xD7A4)]}{[chr(i) for i in range(0x3131, 0x3163)]}"
     else:
