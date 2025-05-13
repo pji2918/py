@@ -1,7 +1,7 @@
 [project]
 name = "py"
 version = "0.1.0"
-description = "Add your description here"
+description = "this is my python file collection."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
