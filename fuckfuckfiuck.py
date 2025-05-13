@@ -12,7 +12,7 @@ for i in range(n):
         if words[j].startswith(words[i]):
             flag = True
             break
-    if flag != True:
+    if not flag:
         cnt += 1
 
 print(cnt)
