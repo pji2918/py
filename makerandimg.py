@@ -8,7 +8,6 @@ random.seed(time.time())
 
 for i in range(image.size[0]):
     for j in range(image.size[1]):
-
         if random.randint(0, 1) == 1:
             pix[i, j] = (255, 255, 255)  # type: ignore
         else:
