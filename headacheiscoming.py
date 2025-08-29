@@ -76,6 +76,25 @@ for i in coordinates:
         f"Printed line {coordinates.index(i) + 1}. ({math.ceil(((coordinates.index(i) + 1) / len(coordinates)) * 100)}% complete)"
     )
 
+t.home()
+t.goto(-width / 2, height / 2)
+t.pendown()
+t.forward(width)
+t.penup()
+t.goto(-width / 2, -height / 2)
+t.pendown()
+t.forward(width)
+
+t.penup()
+t.right(90)
+t.goto(-width / 2, height / 2)
+t.pendown()
+t.forward(height)
+t.penup()
+t.goto(width / 2, height / 2)
+t.pendown()
+t.forward(height)
+
 t.hideturtle()  # 표시 숨기기
 print("Image print completed.")
 
