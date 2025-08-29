@@ -1,0 +1,3 @@
+[submodule "DataSciPy"]
+	path = DataSciPy
+	url = https://github.com/dongupak/DataSciPy.git

@@ -10,5 +10,4 @@ for i in range(3, 11):
         t.forward(100)
         t.left(360 / sides)
 
-
 turtle.done()
