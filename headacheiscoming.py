@@ -10,7 +10,7 @@ startTime = perf_counter()
 
 
 def getAngle(pos1, pos2) -> float:
-    """returns angle between two vectors in degree. (Powered by Gemini because i'm Su-Po-Ja.)"""
+    """Returns angle between two vectors in degree. (Powered by Gemini because i'm Su-Po-Ja.)"""
 
     # x, y 변화량 계산.
     delta_x = pos2[0] - pos1[0]
@@ -57,7 +57,7 @@ for i, contour in enumerate(contours):
     coordinates.append(cord)
 
 endTime = perf_counter()
-print(f"Image processing complete. image has {len(coordinates)} line(s).")
+print(f"Image processing complete. Image has {len(coordinates)} line(s).")
 print(f"{endTime - startTime:.2f}s elapsed.")
 
 t = turtle.Turtle()  # turtle 클래스 인스턴스화
