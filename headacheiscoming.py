@@ -1,8 +1,12 @@
-import math  # 백분율 표시를 위한 소숫점 버림.
+import math  # 각종 수식 계산에 필요.
 import cv2  # 이미지를 처리해주는 핵심적인 라이브러리.
 import numpy as np  # 이미지 연산에 필요.
 import requests  # URL에서 이미지를 가져오기 위해 필요.
 import turtle  # 거북이.
+from time import perf_counter
+
+
+startTime = perf_counter()
 
 
 def getAngle(pos1, pos2) -> float:
@@ -19,7 +23,7 @@ def getAngle(pos1, pos2) -> float:
     return math.degrees(angle_radians)
 
 
-threshold = 250  # 감지 민감도. 높을수록 민감함.
+threshold = 300  # 감지 민감도. 높을수록 민감함.
 url = "https://i.namu.wiki/i/k9hkIJtuVK694gYHADvo9-RWKXsAf7nedXKpsB8dNdqotsKBiiCoA0qJbdiFpBZ196TpJni6mJTv5iJgvRQ1GKQMnC9iCkl0TKbVpgkz8Aa_XcnpxruaOcqQktdS3gPx0GIz8gIOxuzTf0lkDbVkqQ.webp"  # 변환할 이미지를 포함한 URL.
 
 print("Processing image...")
@@ -52,12 +56,15 @@ for i, contour in enumerate(contours):
 
     coordinates.append(cord)
 
+endTime = perf_counter()
 print(f"Image processing complete. image has {len(coordinates)} line(s).")
+print(f"{endTime - startTime:.2f}s elapsed.")
 
 t = turtle.Turtle()  # turtle 클래스 인스턴스화
 t.shape("turtle")  # 거북이 모양.
 t.speed(0)  # 속도 최대화
 
+startTime = perf_counter()
 print("Printing image... (It may take a while)")
 t.penup()  # 펜 들기
 for i in coordinates:
@@ -95,7 +102,9 @@ t.goto(width / 2, height / 2)
 t.pendown()
 t.forward(height)
 
+endTime = perf_counter()
 t.hideturtle()  # 표시 숨기기
 print("Image print completed.")
+print(f"{endTime - startTime:.2f}s elapsed.")
 
 turtle.done()  # 창 유지.
