@@ -10,7 +10,7 @@ startTime = perf_counter()
 
 
 def getAngle(pos1, pos2) -> float:
-    """Returns angle between two vectors in degree. (Powered by Gemini because i'm Su-Po-Ja.)"""
+    """Returns angle between two vectors in degree. (Powered by Gemini because I'm Su-Po-Ja.)"""
 
     # x, y 변화량 계산.
     delta_x = pos2[0] - pos1[0]
