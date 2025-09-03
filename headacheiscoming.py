@@ -24,7 +24,7 @@ def getAngle(pos1, pos2) -> float:
 
 
 threshold = 300  # 감지 민감도. 높을수록 민감함.
-url = "https://i.namu.wiki/i/k9hkIJtuVK694gYHADvo9-RWKXsAf7nedXKpsB8dNdqotsKBiiCoA0qJbdiFpBZ196TpJni6mJTv5iJgvRQ1GKQMnC9iCkl0TKbVpgkz8Aa_XcnpxruaOcqQktdS3gPx0GIz8gIOxuzTf0lkDbVkqQ.webp"  # 변환할 이미지를 포함한 URL.
+url = "https://i.namu.wiki/i/SDMQW6pSbeK3hqI8Jw43RPuurvrTrxhL738hIV-s9EPWvyEcPBcVzF22AOOvsPoqAInexBDGyfJmst7HZJ1VpnaXaa6t7KZHNZjOzfqtSPTmAwUatHJL4OAcLapVVpWHOvIuLVHoMuJwSHmvPQrG0Q.webp"  # 변환할 이미지를 포함한 URL.
 
 print("Processing image...")
 img_array = np.asarray(
