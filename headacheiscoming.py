@@ -6,7 +6,7 @@ import turtle  # 거북이.
 from time import perf_counter
 
 
-startTime = perf_counter()
+startTime = perf_counter()  # 전체 처리 시간 측정을 위해 시작 시간을 기록합니다.
 
 
 def getAngle(pos1, pos2) -> float:
@@ -26,7 +26,7 @@ def getAngle(pos1, pos2) -> float:
 threshold = 300  # 감지 민감도. 높을수록 민감함.
 url = "https://i.namu.wiki/i/SDMQW6pSbeK3hqI8Jw43RPuurvrTrxhL738hIV-s9EPWvyEcPBcVzF22AOOvsPoqAInexBDGyfJmst7HZJ1VpnaXaa6t7KZHNZjOzfqtSPTmAwUatHJL4OAcLapVVpWHOvIuLVHoMuJwSHmvPQrG0Q.webp"  # 변환할 이미지를 포함한 URL.
 
-print("Processing image...")
+print("Processing image...")  # 이미지 처리 시작 알림 출력
 img_array = np.asarray(
     bytearray(requests.get(url).content), dtype=np.uint8
 )  # URL에서 이미지를 획득 후 NumPy 배열 형태로 저장.
@@ -47,28 +47,30 @@ coordinates = []  # 윤곽선의 좌표를 저장할 List 선언.
 
 # 윤곽선 데이터를 배열에 좌표(x,y) 형태로 저장.
 for i, contour in enumerate(contours):
-    cord = contour.squeeze().tolist()
+    cord = contour.squeeze().tolist()  # contour 배열을 2D 좌표 리스트로 변환
 
     if isinstance(cord, int):
         continue
     if len(cord) > 1 and isinstance(cord[0], int):
         cord = [cord]
 
-    coordinates.append(cord)
+    coordinates.append(cord)  # 변환된 좌표를 전체 좌표 목록에 추가
 
-endTime = perf_counter()
-print(f"Image processing complete. Image has {len(coordinates)} line(s).")
-print(f"{endTime - startTime:.2f}s elapsed.")
+endTime = perf_counter()  # 이미지 처리 완료 시점 기록
+print(
+    f"Image processing complete. Image has {len(coordinates)} line(s)."
+)  # 처리 결과 요약 출력
+print(f"{endTime - startTime:.2f}s elapsed.")  # 이미지 처리 소요 시간 출력.
 
 t = turtle.Turtle()  # turtle 클래스 인스턴스화
 t.shape("turtle")  # 거북이 모양.
 t.speed(0)  # 속도 최대화
 
-startTime = perf_counter()
-print("Printing image... (It may take a while)")
-t.penup()  # 펜 들기
-for i in coordinates:
-    for ii in i:
+startTime = perf_counter()  # 출력(거북이) 작업 시작 시간 기록
+print("Printing image... (It may take a while)")  # 출력 시작 알림
+t.penup()  # 거북이 펜을 든 상태(이동 시 선이 그려지지 않음)
+for i in coordinates:  # 윤곽선(한 줄씩) 반복
+    for ii in i:  # 한 윤곽선의 각 좌표 반복
         t.setheading(
             getAngle(t.pos(), (ii[0] - (width / 2), (height / 2) - ii[1]))
         )  # 방향 설정
@@ -81,7 +83,7 @@ for i in coordinates:
             t.goto(ii[0] - (width / 2), (height / 2) - ii[1])  # 좌표로 이동
     print(
         f"Printed line {coordinates.index(i) + 1}. ({math.ceil(((coordinates.index(i) + 1) / len(coordinates)) * 100)}% complete)"
-    )
+    )  # 현재까지 출력한 선의 번호와 진행률을 출력
 
 t.home()
 t.goto(-width / 2, height / 2)
@@ -102,9 +104,9 @@ t.goto(width / 2, height / 2)
 t.pendown()
 t.forward(height)
 
-endTime = perf_counter()
-t.hideturtle()  # 표시 숨기기
-print("Image print completed.")
-print(f"{endTime - startTime:.2f}s elapsed.")
+endTime = perf_counter()  # 출력 작업 완료 시점 기록
+t.hideturtle()  # 거북이 커서 숨김
+print("Image print completed.")  # 출력 완료 알림
+print(f"{endTime - startTime:.2f}s elapsed.")  # 출력 소요 시간 출력
 
 turtle.done()  # 창 유지.
