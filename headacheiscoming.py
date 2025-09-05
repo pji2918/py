@@ -3,7 +3,7 @@ import cv2  # 이미지를 처리해주는 핵심적인 라이브러리.
 import numpy as np  # 이미지 연산에 필요.
 import requests  # URL에서 이미지를 가져오기 위해 필요.
 import turtle  # 거북이.
-from time import perf_counter
+from time import perf_counter  # 소요 시간 측정용.
 
 
 startTime = perf_counter()  # 전체 처리 시간 측정을 위해 시작 시간을 기록합니다.
@@ -77,7 +77,7 @@ for i in coordinates:  # 윤곽선(한 줄씩) 반복
         if i.index(ii) > 0:  # 일반적인 상황.
             t.pendown()  # 펜 내림
             t.goto(ii[0] - (width / 2), (height / 2) - ii[1])  # 좌표로 이동
-            t.penup()  # 펜 올림
+            # t.penup()  # 펜 올림
         else:  # 각 선의 첫 번째 좌표로 이동할 때는 펜을 내리지 않음.
             t.penup()  # 펜 올림
             t.goto(ii[0] - (width / 2), (height / 2) - ii[1])  # 좌표로 이동
@@ -85,6 +85,7 @@ for i in coordinates:  # 윤곽선(한 줄씩) 반복
         f"Printed line {coordinates.index(i) + 1}. ({math.ceil(((coordinates.index(i) + 1) / len(coordinates)) * 100)}% complete)"
     )  # 현재까지 출력한 선의 번호와 진행률을 출력
 
+t.penup()
 t.home()
 t.goto(-width / 2, height / 2)
 t.pendown()
