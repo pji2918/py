@@ -62,29 +62,19 @@ print(
 )  # 처리 결과 요약 출력
 print(f"{endTime - startTime:.2f}s elapsed.")  # 이미지 처리 소요 시간 출력.
 
+sc = turtle.Screen()
+sc.title('secondEOS == "ReallyDanger"')
+
 t = turtle.Turtle()  # turtle 클래스 인스턴스화
 t.shape("turtle")  # 거북이 모양.
 t.speed(0)  # 속도 최대화
 
+
+t.fillcolor("white")
 startTime = perf_counter()  # 출력(거북이) 작업 시작 시간 기록
 print("Printing image... (It may take a while)")  # 출력 시작 알림
-t.penup()  # 거북이 펜을 든 상태(이동 시 선이 그려지지 않음)
-for i in coordinates:  # 윤곽선(한 줄씩) 반복
-    for ii in i:  # 한 윤곽선의 각 좌표 반복
-        t.setheading(
-            getAngle(t.pos(), (ii[0] - (width / 2), (height / 2) - ii[1]))
-        )  # 방향 설정
-        if i.index(ii) > 0:  # 일반적인 상황.
-            t.pendown()  # 펜 내림
-            t.goto(ii[0] - (width / 2), (height / 2) - ii[1])  # 좌표로 이동
-            # t.penup()  # 펜 올림
-        else:  # 각 선의 첫 번째 좌표로 이동할 때는 펜을 내리지 않음.
-            t.penup()  # 펜 올림
-            t.goto(ii[0] - (width / 2), (height / 2) - ii[1])  # 좌표로 이동
-    print(
-        f"Printed line {coordinates.index(i) + 1}. ({math.ceil(((coordinates.index(i) + 1) / len(coordinates)) * 100)}% complete)"
-    )  # 현재까지 출력한 선의 번호와 진행률을 출력
 
+t.begin_fill()
 t.penup()
 t.home()
 t.goto(-width / 2, height / 2)
@@ -104,10 +94,24 @@ t.penup()
 t.goto(width / 2, height / 2)
 t.pendown()
 t.forward(height)
+t.end_fill()
+
+t.penup()  # 펜 올림
+for i in coordinates:  # 윤곽선(한 줄씩) 반복
+    t.penup()  # 펜 올림
+    for ii in i:  # 한 윤곽선의 각 좌표 반복
+        t.setheading(
+            getAngle(t.pos(), (ii[0] - (width / 2), (height / 2) - ii[1]))
+        )  # 방향 설정
+        t.goto(ii[0] - (width / 2), (height / 2) - ii[1])  # 좌표로 이동
+        t.pendown()  # 펜 내림
+    print(
+        f"Printed line {coordinates.index(i) + 1}. ({math.ceil(((coordinates.index(i) + 1) / len(coordinates)) * 100)}% complete)"
+    )  # 현재까지 출력한 선의 번호와 진행률을 출력
 
 endTime = perf_counter()  # 출력 작업 완료 시점 기록
 t.hideturtle()  # 거북이 커서 숨김
 print("Image print completed.")  # 출력 완료 알림
 print(f"{endTime - startTime:.2f}s elapsed.")  # 출력 소요 시간 출력
 
-turtle.done()  # 창 유지.
+input("Press Enter to exit")
