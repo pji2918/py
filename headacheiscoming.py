@@ -1,4 +1,5 @@
 import math  # 각종 수식 계산에 필요.
+import sys
 import cv2  # 이미지를 처리해주는 핵심적인 라이브러리.
 import numpy as np  # 이미지 연산에 필요.
 import requests  # URL에서 이미지를 가져오기 위해 필요.
@@ -26,9 +27,18 @@ def getAngle(pos1, pos2) -> float:
 threshold = 300  # 감지 민감도. 높을수록 민감함.
 url = "https://i.namu.wiki/i/SDMQW6pSbeK3hqI8Jw43RPuurvrTrxhL738hIV-s9EPWvyEcPBcVzF22AOOvsPoqAInexBDGyfJmst7HZJ1VpnaXaa6t7KZHNZjOzfqtSPTmAwUatHJL4OAcLapVVpWHOvIuLVHoMuJwSHmvPQrG0Q.webp"  # 변환할 이미지를 포함한 URL.
 
+print("Requesting image...")
+dl = requests.get(url)
+
+if dl.status_code != 200:
+    print("ERROR. cannot get image.")
+    print(f"Error code : {dl.status_code}")
+    print("Exiting.")
+    sys.exit(1)
+
 print("Processing image...")  # 이미지 처리 시작 알림 출력
 img_array = np.asarray(
-    bytearray(requests.get(url).content), dtype=np.uint8
+    bytearray(dl.content), dtype=np.uint8
 )  # URL에서 이미지를 획득 후 NumPy 배열 형태로 저장.
 img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)  # 배열을 OpenCV2로 디코딩.
 
