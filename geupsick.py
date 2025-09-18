@@ -73,7 +73,7 @@ else:
 try:
     # print the DDISH_NM in the text
     food = text["mealServiceDietInfo"][1]["row"][t]["DDISH_NM"]
-except:
+except Exception:
     food = "급식 없음"
 
 
