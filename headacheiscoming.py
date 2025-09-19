@@ -31,7 +31,7 @@ print("Requesting image...")
 dl = requests.get(url)
 
 if dl.status_code != 200:
-    print("ERROR. cannot get image.")
+    print("ERROR. Cannot get image.")
     print(f"Error code : {dl.status_code}")
     print("Exiting.")
     sys.exit(1)
