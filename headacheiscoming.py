@@ -24,21 +24,32 @@ def getAngle(pos1, pos2) -> float:
     return math.degrees(angle_radians)
 
 
+useImgFromURL = False
 threshold = 300  # 감지 민감도. 높을수록 민감함.
-url = "https://i.namu.wiki/i/SDMQW6pSbeK3hqI8Jw43RPuurvrTrxhL738hIV-s9EPWvyEcPBcVzF22AOOvsPoqAInexBDGyfJmst7HZJ1VpnaXaa6t7KZHNZjOzfqtSPTmAwUatHJL4OAcLapVVpWHOvIuLVHoMuJwSHmvPQrG0Q.webp"  # 변환할 이미지를 포함한 URL.
 
-print("Requesting image...")
-dl = requests.get(url)
+dl = bytes()
 
-if dl.status_code != 200:
-    print("ERROR. Cannot get image.")
-    print(f"Error code : {dl.status_code}")
-    print("Exiting.")
-    sys.exit(1)
+if useImgFromURL:
+    url = "https://i.namu.wiki/i/SDMQW6pSbeK3hqI8Jw43RPuurvrTrxhL738hIV-s9EPWvyEcPBcVzF22AOOvsPoqAInexBDGyfJmst7HZJ1VpnaXaa6t7KZHNZjOzfqtSPTmAwUatHJL4OAcLapVVpWHOvIuLVHoMuJwSHmvPQrG0Q.webp"  # 변환할 이미지를 포함한 URL.
+
+    print("Requesting image...")
+    req = requests.get(url)
+
+    if req.status_code == 200:
+        dl = req.content
+    else:
+        print("ERROR. Cannot get image.")
+        print(f"Error code : {req.status_code}")
+        print("Exiting.")
+        sys.exit(1)
+else:
+    with open("btr.webp", "rb") as f:
+        dl = f.read()
+
 
 print("Processing image...")  # 이미지 처리 시작 알림 출력
 img_array = np.asarray(
-    bytearray(dl.content), dtype=np.uint8
+    bytearray(dl), dtype=np.uint8
 )  # URL에서 이미지를 획득 후 NumPy 배열 형태로 저장.
 img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)  # 배열을 OpenCV2로 디코딩.
 
