@@ -10,7 +10,7 @@ from time import perf_counter  # 소요 시간 측정용.
 import argparse
 
 argParser = argparse.ArgumentParser(
-    prog="IHaveAHeadache", description="Prints image on Turtle."
+    prog="HeadacheIsComing", description="Prints image on Turtle."
 )
 
 argParser.add_argument(
@@ -106,7 +106,7 @@ print(
 print(f"{endTime - startTime:.2f}s elapsed.")  # 이미지 처리 소요 시간 출력.
 
 sc = turtle.Screen()
-sc.title("IHaveAHeadache")
+sc.title("HeadacheIsComing")
 
 t = turtle.Turtle()  # turtle 클래스 인스턴스화
 t.shape("turtle")  # 거북이 모양.
