@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import math  # 각종 수식 계산에 필요.
 import sys
 import cv2  # 이미지를 처리해주는 핵심적인 라이브러리.
@@ -5,6 +7,17 @@ import numpy as np  # 이미지 연산에 필요.
 import requests  # URL에서 이미지를 가져오기 위해 필요.
 import turtle  # 거북이.
 from time import perf_counter  # 소요 시간 측정용.
+import argparse
+
+argParser = argparse.ArgumentParser(
+    prog="IHaveAHeadache", description="Prints image on Turtle."
+)
+
+argParser.add_argument(
+    "-i", "--input", help="Specifies filename that you want to print"
+)
+argParser.add_argument("--url", help="Specifies URL that you want to print")
+args = argParser.parse_args()
 
 
 startTime = perf_counter()  # 전체 처리 시간 측정을 위해 시작 시간을 기록합니다.
@@ -24,13 +37,13 @@ def getAngle(pos1, pos2) -> float:
     return math.degrees(angle_radians)
 
 
-useImgFromURL = False
+useImgFromURL = args.url is not None
 threshold = 300  # 감지 민감도. 높을수록 민감함.
 
 dl = bytes()
 
 if useImgFromURL:
-    url = "https://i.namu.wiki/i/SDMQW6pSbeK3hqI8Jw43RPuurvrTrxhL738hIV-s9EPWvyEcPBcVzF22AOOvsPoqAInexBDGyfJmst7HZJ1VpnaXaa6t7KZHNZjOzfqtSPTmAwUatHJL4OAcLapVVpWHOvIuLVHoMuJwSHmvPQrG0Q.webp"  # 변환할 이미지를 포함한 URL.
+    url = args.url  # 변환할 이미지를 포함한 URL.
 
     print("Requesting image...")
     req = requests.get(url)
@@ -38,13 +51,18 @@ if useImgFromURL:
     if req.status_code == 200:
         dl = req.content
     else:
-        print("ERROR. Cannot get image.")
+        print("ERROR: Cannot get image.")
         print(f"Error code : {req.status_code}")
         print("Exiting.")
         sys.exit(1)
 else:
-    with open("btr.webp", "rb") as f:
-        dl = f.read()
+    if args.input is not None:
+        with open(args.input, "rb") as f:
+            dl = f.read()
+    else:
+        print("ERROR: You should specify either one URL or a filename.")
+        print('Launch this program with "--help" to show a help.')
+        sys.exit(1)
 
 
 print("Processing image...")  # 이미지 처리 시작 알림 출력
@@ -84,7 +102,7 @@ print(
 print(f"{endTime - startTime:.2f}s elapsed.")  # 이미지 처리 소요 시간 출력.
 
 sc = turtle.Screen()
-sc.title('secondEOS == "ReallyDanger"')
+sc.title("IHaveAHeadache")
 
 t = turtle.Turtle()  # turtle 클래스 인스턴스화
 t.shape("turtle")  # 거북이 모양.
