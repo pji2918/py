@@ -57,8 +57,12 @@ if useImgFromURL:
         sys.exit(1)
 else:
     if args.input is not None:
-        with open(args.input, "rb") as f:
-            dl = f.read()
+        try:
+            with open(args.input, "rb") as f:
+                dl = f.read()
+        except FileNotFoundError:
+            print(f'File named "{args.input}" was not found.')
+            sys.exit(1)
     else:
         print("ERROR: You should specify either one URL or a filename.")
         print('Launch this program with "--help" to show a help.')
