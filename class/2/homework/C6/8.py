@@ -3,9 +3,9 @@ import math
 
 def distance(x1, y1, x2, y2):
     if x1 == x2:
-        return max(x1, x2) - min(x1, x2)
-    elif y1 == y2:
         return max(y1, y2) - min(y1, y2)
+    elif y1 == y2:
+        return max(x1, x2) - min(x1, x2)
     else:
         return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
