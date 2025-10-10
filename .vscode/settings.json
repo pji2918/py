@@ -1,4 +1,12 @@
 {
     "python.analysis.typeCheckingMode": "standard",
     "python.analysis.autoImportCompletions": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/.venv": true
+    }
 }
