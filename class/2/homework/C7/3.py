@@ -1,6 +1,8 @@
 list1 = ["I like", "I love"]
 list2 = ["pancakes.", "kiwi juice.", "espresso."]
+list3 = [f"{x} {y}" for x in list1 for y in list2]
 
-for i in list1:
-    for ii in list2:
-        print(f"{i} {ii}")
+print(list3)
+print("=" * 30)
+for i in list3:
+    print(i)
