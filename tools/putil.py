@@ -7,7 +7,7 @@ import random
 
 def getStatement(min: int = 1, max: int = 19721121) -> str:
     """
-    무작위 수학 식을 반환합니다.
+    무작위 수학 식을 반환합니다. (evaluate 가능)
 
     :type min: int
     :param min: 최소 값
