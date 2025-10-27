@@ -2,6 +2,7 @@
 
 import math  # 각종 수식 계산에 필요.
 import sys
+from typing import List
 import cv2  # 이미지를 처리해주는 핵심적인 라이브러리.
 import numpy as np  # 이미지 연산에 필요.
 import requests  # URL에서 이미지를 가져오기 위해 필요.
@@ -37,73 +38,79 @@ def getAngle(pos1, pos2) -> float:
     return math.degrees(angle_radians)
 
 
-useImgFromURL = args.url is not None
-threshold = 300  # 감지 민감도. 높을수록 민감함.
+def getImage():
+    useImgFromURL = args.url is not None
 
-dl = bytes()
+    dl = bytes()
 
-if useImgFromURL:
-    url = args.url  # 변환할 이미지를 포함한 URL.
+    if useImgFromURL:
+        url = args.url  # 변환할 이미지를 포함한 URL.
 
-    print("Requesting image...")
-    req = requests.get(url)
+        print("Requesting image...")
+        req = requests.get(url)
 
-    if req.status_code == 200:
-        dl = req.content
-    else:
-        print("ERROR: Cannot get image.")
-        print(f"Error code : {req.status_code}")
-        print("Exiting.")
-        sys.exit(1)
-else:
-    if args.input is not None:
-        try:
-            with open(args.input, "rb") as f:
-                dl = f.read()
-        except FileNotFoundError:
-            print(f'File named "{args.input}" was not found.')
+        if req.status_code == 200:
+            dl = req.content
+        else:
+            print("ERROR: Cannot get image.")
+            print(f"Error code : {req.status_code}")
+            print("Exiting.")
             sys.exit(1)
     else:
-        print("ERROR: You should specify either one URL or a filename.")
-        print('Launch this program with "--help" to show a help.')
-        sys.exit(1)
+        if args.input is not None:
+            try:
+                with open(args.input, "rb") as f:
+                    dl = f.read()
+            except FileNotFoundError:
+                print(f'File named "{args.input}" was not found.')
+                sys.exit(1)
+        else:
+            print("ERROR: You should specify either one URL or a filename.")
+            print('Launch this program with "--help" to show a help.')
+            sys.exit(1)
+
+    print("Processing image...")  # 이미지 처리 시작 알림 출력
+    img_array = np.asarray(
+        bytearray(dl), dtype=np.uint8
+    )  # URL에서 이미지를 획득 후 NumPy 배열 형태로 저장.
+    return cv2.imdecode(img_array, cv2.IMREAD_COLOR)  # 배열을 OpenCV2로 디코딩.
 
 
-print("Processing image...")  # 이미지 처리 시작 알림 출력
-img_array = np.asarray(
-    bytearray(dl), dtype=np.uint8
-)  # URL에서 이미지를 획득 후 NumPy 배열 형태로 저장.
-img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)  # 배열을 OpenCV2로 디코딩.
+def processImage(img: cv2.typing.MatLike) -> List:
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # 색상 제거.
 
+    threshold = 300  # 감지 민감도. 높을수록 민감함.
+    canny = cv2.Canny(
+        gray, threshold, threshold * 2
+    )  # Canny Edge Detection Algorithm을 이용하여 가장자리 정보만 유지. 아직 이미지임.
+
+    contours, _ = cv2.findContours(
+        canny, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE
+    )  # 윤곽선을 추출하여 저장.
+
+    coordinates = []  # 윤곽선의 좌표를 저장할 List 선언.
+
+    # 윤곽선 데이터를 배열에 좌표(x,y) 형태로 저장.
+    for i, contour in enumerate(contours):
+        cord = contour.squeeze().tolist()  # contour 배열을 2D 좌표 리스트로 변환
+
+        if isinstance(cord, int):
+            continue
+        if len(cord) > 1 and isinstance(cord[0], int):
+            cord = [cord]
+
+        coordinates.append(cord)  # 변환된 좌표를 전체 좌표 목록에 추가
+
+    endTime = perf_counter()  # 이미지 처리 완료 시점 기록
+    print(
+        f"Image processing complete. Image has {len(coordinates)} line(s)."
+    )  # 처리 결과 요약 출력
+    print(f"{endTime - startTime:.2f}s elapsed.")  # 이미지 처리 소요 시간 출력.
+    return coordinates
+
+
+img = getImage()
 height, width, channel = img.shape  # 이미지의 크기를 저장.
-
-gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # 색상 제거.
-canny = cv2.Canny(
-    gray, threshold, threshold * 2
-)  # Canny Edge Detection Algorithm을 이용하여 가장자리 정보만 유지. 아직 이미지임.
-
-contours, hierachy = cv2.findContours(
-    canny, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE
-)  # 윤곽선을 추출하여 저장.
-
-coordinates = []  # 윤곽선의 좌표를 저장할 List 선언.
-
-# 윤곽선 데이터를 배열에 좌표(x,y) 형태로 저장.
-for i, contour in enumerate(contours):
-    cord = contour.squeeze().tolist()  # contour 배열을 2D 좌표 리스트로 변환
-
-    if isinstance(cord, int):
-        continue
-    if len(cord) > 1 and isinstance(cord[0], int):
-        cord = [cord]
-
-    coordinates.append(cord)  # 변환된 좌표를 전체 좌표 목록에 추가
-
-endTime = perf_counter()  # 이미지 처리 완료 시점 기록
-print(
-    f"Image processing complete. Image has {len(coordinates)} line(s)."
-)  # 처리 결과 요약 출력
-print(f"{endTime - startTime:.2f}s elapsed.")  # 이미지 처리 소요 시간 출력.
 
 sc = turtle.Screen()
 sc.title("HeadacheIsComing")
@@ -140,6 +147,9 @@ t.forward(height)
 t.end_fill()
 
 t.penup()  # 펜 올림
+
+coordinates = processImage(img)
+
 for i in coordinates:  # 윤곽선(한 줄씩) 반복
     t.penup()  # 펜 올림
     for ii in i:  # 한 윤곽선의 각 좌표 반복
