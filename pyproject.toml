@@ -17,3 +17,6 @@ dependencies = [
     "wikipedia>=1.4.0",
     "wordcloud>=1.9.4",
 ]
+classifiers = [
+    "Private :: Do Not Upload",
+]
