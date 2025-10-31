@@ -18,3 +18,7 @@ def getStatement(min: int = 1, max: int = 19721121) -> str:
     """
 
     return f"{random.randint(min, max)} {random.choice(['+', '-', '*', '/'])} {random.randint(min, max)}"
+
+
+def blackColorMap(word, font_size, position, orientation, random_state=None, **kwargs):
+    return "hsl(79 100%% 0%%)"
