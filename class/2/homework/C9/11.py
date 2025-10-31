@@ -9,6 +9,7 @@ txt = (
 
 stopwords = STOPWORDS.union({"south", "north", "korean", "world", "country"})
 wc = WordCloud(stopwords=stopwords).generate(txt)
+# wc.to_file("/Users/pji2918/Downloads/cloud.png")
 plt.imshow(wc)
 plt.axis("off")
 plt.show()
