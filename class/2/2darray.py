@@ -18,5 +18,6 @@ x = np.array(
 )
 print(x.flatten())
 print(x.reshape(4, -1))
-plt.hist(np.random.randn(100))
+plt.plot(np.linspace(0, 10))
+plt.plot(np.logspace(0, 1))
 plt.show()
