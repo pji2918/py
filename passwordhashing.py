@@ -1,8 +1,10 @@
 from getpass import getpass
+import os
 import sys
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, Session
 from Crypto.Hash import SHA3_512
+from dotenv import load_dotenv
 
 
 class Base(DeclarativeBase):
@@ -19,9 +21,11 @@ class User(Base):
 
 
 if __name__ == "__main__":
+    load_dotenv(".env")
+    db_pw = os.getenv("DB_PASSWORD")
     hash = SHA3_512.new()
     engine = create_engine(
-        "mysql+pymysql://root:chicken@127.0.0.1:3306/test", echo=False
+        f"mysql+pymysql://root:{db_pw}@127.0.0.1:3306/test", echo=False
     )
 
     inp = input("REGISTER OR LOGIN? : ")
@@ -36,9 +40,6 @@ if __name__ == "__main__":
             sys.exit(1)
 
         userpw = hash.hexdigest()
-
-        # with engine.connect() as conn:
-        #     session = Session(engine)
         Base.metadata.create_all(engine)
 
         with Session(engine) as session:
@@ -61,8 +62,6 @@ if __name__ == "__main__":
         hash.update(getpass("Enter PW: ").encode())
         userpw = hash.hexdigest()
 
-        # with engine.connect() as conn:
-        #     session = Session(engine)
         Base.metadata.create_all(engine)
 
         with Session(engine) as session:
