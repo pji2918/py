@@ -1,12 +1,13 @@
 from matplotlib import pyplot as plt
 import numpy as np
 
-x = np.arange(0, 360)
-y = np.radians(x)
+x = np.linspace(0, 40, 500)
+amp = np.linspace(0, 7, 40)
 
-amp = np.linspace(0, 7, 360)
+ySin = x * np.sin(6 * np.pi / 19 * x)
+yCos = 20 * np.cos(7 * np.pi / 20 * x)
 
-plt.plot(x, np.sin(y * 7) * amp, "r-")
-plt.plot(x, np.cos(y * 7) * amp, "b--")
+plt.plot(x, ySin, "r-")
+plt.plot(x, yCos, "b--")
 
 plt.show()
