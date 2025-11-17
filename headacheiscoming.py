@@ -21,7 +21,7 @@ argParser.add_argument("--url", help="Specifies URL that you want to print")
 args = argParser.parse_args()
 
 
-startTime = perf_counter()  # 전체 처리 시간 측정을 위해 시작 시간을 기록합니다.
+startTime = perf_counter()
 
 
 def getAngle(pos1, pos2) -> float:
