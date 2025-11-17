@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
     if inp.upper() == "REGISTER":
         userid = input("Enter ID: ")
-        pw = getpass("Enter PW: ")
+        pw = getpass("Enter PW: ", echo_char="*")
         if getpass("Enter PW Again: ") == pw:
             hash.update(pw.encode())
         else:
@@ -59,7 +59,7 @@ if __name__ == "__main__":
                 print("SUCCESS")
     elif inp.upper() == "LOGIN":
         userid = input("Enter ID: ")
-        hash.update(getpass("Enter PW: ").encode())
+        hash.update(getpass("Enter PW: ", echo_char="*").encode())
         userpw = hash.hexdigest()
 
         Base.metadata.create_all(engine)
