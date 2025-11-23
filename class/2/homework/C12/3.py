@@ -32,4 +32,9 @@ print(pd.concat([p_df, q_df]))
 print()
 p_df["hp x mile"] = p_df["horse power"] * p_df["efficiency"]
 q_df["hp x mile"] = q_df["horse power"] * q_df["efficiency"]
-print(pd.concat([p_df, q_df]).groupby("com")["hp x mile"].mean(numeric_only=True))
+print(
+    pd.concat([p_df, q_df])
+    .groupby("com")["hp x mile"]
+    .mean(numeric_only=True)
+    .to_string()
+)
