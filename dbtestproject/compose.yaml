@@ -4,7 +4,7 @@ networks:
   dbnet:
 services:
   dbms:
-    image: mariadb:12-ubi10
+    image: mariadb:latest
     ports:
       - 3306:3306
     environment:
@@ -16,7 +16,7 @@ services:
         ipv4_address: 10.89.0.5
     container_name: mariadb
   phpmyadmin:
-    image: phpmyadmin
+    image: phpmyadmin:latest
     ports:
       - 8080:80
     environment:
