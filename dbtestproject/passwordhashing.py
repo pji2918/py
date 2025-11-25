@@ -28,9 +28,9 @@ if __name__ == "__main__":
         f"mysql+pymysql://root:{db_pw}@127.0.0.1:3306/test", echo=False
     )
 
-    inp = input("REGISTER OR LOGIN? : ")
+    userInput = input("REGISTER OR LOGIN? : ")
 
-    if inp.upper() == "REGISTER":
+    if userInput.upper() == "REGISTER":
         userid = input("Enter ID: ")
         pw = getpass("Enter PW: ", echo_char="*")
         if getpass("Enter PW Again: ") == pw:
@@ -57,7 +57,7 @@ if __name__ == "__main__":
                     print(f"ERROR: {e}")
                     exit(-1)
                 print("SUCCESS")
-    elif inp.upper() == "LOGIN":
+    elif userInput.upper() == "LOGIN":
         userid = input("Enter ID: ")
         hash.update(getpass("Enter PW: ", echo_char="*").encode())
         userpw = hash.hexdigest()
