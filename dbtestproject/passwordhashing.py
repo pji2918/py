@@ -76,3 +76,6 @@ if __name__ == "__main__":
             else:
                 print("GO AWAY")
                 exit(2)
+else:
+    print("Sorry. This program is not intended to be used as a library.")
+    sys.exit(-10)
