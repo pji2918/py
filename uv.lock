@@ -942,7 +942,6 @@ name = "py"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
-    { name = "ipykernel" },
     { name = "konlpy" },
     { name = "matplotlib" },
     { name = "nltk" },
@@ -961,9 +960,13 @@ dependencies = [
     { name = "wordcloud" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "ipykernel" },
+]
+
 [package.metadata]
 requires-dist = [
-    { name = "ipykernel", specifier = ">=6.29.5" },
     { name = "konlpy", specifier = ">=0.6.0" },
     { name = "matplotlib", specifier = ">=3.10.3" },
     { name = "nltk", specifier = ">=3.9.2" },
@@ -981,6 +984,9 @@ requires-dist = [
     { name = "wikipedia", specifier = ">=1.4.0" },
     { name = "wordcloud", specifier = ">=1.9.4" },
 ]
+
+[package.metadata.requires-dev]
+dev = [{ name = "ipykernel", specifier = ">=7.1.0" }]
 
 [[package]]
 name = "pycparser"
