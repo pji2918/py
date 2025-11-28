@@ -2,7 +2,7 @@ import random
 from matplotlib import pyplot as plt
 import pandas as pd
 
-df = pd.read_csv("class/2/countries.csv", index_col=0)
+df = pd.read_csv("class/2/data/csv/countries.csv", index_col=0)
 
 # fig, axes = plt.subplots(1, 2)
 
