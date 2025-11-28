@@ -2,7 +2,7 @@ import csv
 
 from matplotlib import pyplot as plt
 
-with open("class/2/weather.csv") as f:
+with open("class/2/data/csv/weather.csv") as f:
     data = csv.reader(f)
     header = next(data)
 
