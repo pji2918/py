@@ -19,5 +19,4 @@ for i in range(image.size[0]):
         #     random.randint(0, 255),
         # )
 
-image.save("test.png", format="PNG")
 image.show()
