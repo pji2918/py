@@ -21,4 +21,5 @@ classifiers = [
 [dependency-groups]
 dev = [
     "ipykernel>=7.1.0",
+    "notebook>=7.5.5",
 ]
