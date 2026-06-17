@@ -1,3 +1,4 @@
+import subprocess
 import datetime
 import os
 
@@ -14,6 +15,8 @@ while True:
     print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
     if os.name == "nt":
-        os.system("cls")
+        # os.system("cls")
+        subprocess.run("cls")
     else:
-        os.system("clear")
+        # os.system("clear")
+        subprocess.run("clear")

@@ -1,9 +1,10 @@
+import subprocess
 from io import StringIO
 import pandas as pd
 import requests as rq
 import datetime
 import os
-import openai
+import openai  # ty:ignore[unresolved-import]
 
 ai = openai.OpenAI(api_key="sk-proj-bFNw2Oan264wwmkfQwn0T3BlbkFJHkzw1T7RBULqu6wK2j0w")
 
@@ -83,9 +84,11 @@ food = food.replace("<br/>", "\n")
 # clear console
 
 if os.name == "nt":
-    os.system("cls")
+    # os.system("cls")
+    subprocess.run("cls")
 else:
-    os.system("clear")
+    # os.system("clear")
+    subprocess.run("clear")
 
 print(
     str.format(
