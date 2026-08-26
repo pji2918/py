@@ -38,6 +38,6 @@ while True:
             continue
         elif ans.lower() == "n" or "ㄴ" in ans:
             break
-    except (ValueError, TypeError):
+    except ValueError, TypeError:
         print("Error. 해당 값은 입력할 수 없습니다.")
         continue
