@@ -1,6 +1,7 @@
-import time
-from PIL import Image
 import random
+import time
+
+from PIL import Image
 
 image = Image.new(mode="RGBA", size=(300, 300))
 pix = image.load()

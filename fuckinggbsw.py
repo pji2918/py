@@ -11,7 +11,6 @@ for i in range(1, amount + 1):
 
 needMoreCash = totalCost - money
 
-if needMoreCash <= 0:
-    needMoreCash = 0
+needMoreCash = max(0, needMoreCash)
 
 print(needMoreCash)

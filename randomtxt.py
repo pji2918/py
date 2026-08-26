@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
+import argparse
 import random
 import string
-import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument(

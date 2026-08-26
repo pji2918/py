@@ -1,10 +1,11 @@
-import subprocess
-from io import StringIO
-import pandas as pd
-import requests as rq
 import datetime
 import os
+import subprocess
+from io import StringIO
+
 import openai  # ty:ignore[unresolved-import]
+import pandas as pd
+import requests as rq
 
 ai = openai.OpenAI(api_key="sk-proj-bFNw2Oan264wwmkfQwn0T3BlbkFJHkzw1T7RBULqu6wK2j0w")
 
