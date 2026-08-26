@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 
+import argparse
 import math  # 각종 수식 계산에 필요.
 import sys
-from typing import List
+import turtle  # 거북이.
+from time import perf_counter  # 소요 시간 측정용.
+
 import cv2  # 이미지를 처리해주는 핵심적인 라이브러리.
 import numpy as np  # 이미지 연산에 필요.
 import requests  # URL에서 이미지를 가져오기 위해 필요.
-import turtle  # 거북이.
-from time import perf_counter  # 소요 시간 측정용.
-import argparse
 
 argParser = argparse.ArgumentParser(
     prog="HeadacheIsComing", description="Prints image on Turtle."
@@ -41,7 +41,7 @@ def getAngle(pos1, pos2) -> float:
 def getImage():
     useImgFromURL = args.url is not None
 
-    dl = bytes()
+    dl = b""
 
     if useImgFromURL:
         url = args.url  # 변환할 이미지를 포함한 URL.
@@ -76,7 +76,7 @@ def getImage():
     return cv2.imdecode(img_array, cv2.IMREAD_COLOR)  # 배열을 OpenCV2로 디코딩.
 
 
-def processImage(img: cv2.typing.MatLike) -> List:
+def processImage(img: cv2.typing.MatLike) -> list:
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # 색상 제거.
 
     threshold = 300  # 감지 민감도. 높을수록 민감함.
