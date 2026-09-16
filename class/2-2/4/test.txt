@@ -1,0 +1,15 @@
+(1)Valid line 001
+(2)Valid line 002
+
+Invalid line 001
+(I)nvalid line 002
+()Invalid line 003
+( )Invalid line 004
+1nvalid line 005
+    (0)Invalid line 006
+Invalid line 007(4)
+[5]Invalid line 008
+{6}Invalid line 009
+
+(3) Valid line 003
+(4) Valid line 004    
