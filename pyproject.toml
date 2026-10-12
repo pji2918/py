@@ -27,3 +27,13 @@ dev = [
     "ruff>=0.17.0",
     "ty>=0.0.86",
 ]
+
+[tool.ruff]
+exclude = [
+    "boj"
+]
+
+[tool.ty.src]
+exclude = [
+    "boj"
+]

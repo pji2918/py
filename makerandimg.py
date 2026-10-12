@@ -14,7 +14,7 @@ for i in range(image.size[0]):
         else:
             pix[i, j] = (0, 0, 0)  # type: ignore
 
-        # pix[i, j] = (  # type: ignore
+        # pix[i, j] = (
         #     random.randint(0, 255),
         #     random.randint(0, 255),
         #     random.randint(0, 255),

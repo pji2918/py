@@ -16,7 +16,7 @@ while True:
 
     if os.name == "nt":
         # os.system("cls")
-        subprocess.run("cls")
+        subprocess.run("cls", check=True)
     else:
         # os.system("clear")
-        subprocess.run("clear")
+        subprocess.run("clear", check=True)
